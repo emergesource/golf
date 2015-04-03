@@ -12,6 +12,9 @@
     "express": "~4.12.2",
     "hbs": "~2.9.0",
     "morgan": "~1.5.1",
+    "mysql": "^2.6.1",
+    "sequelize": "^2.0.5",
+    "sequelize-cli": "^1.6.0",
     "serve-favicon": "~2.2.0"
   }
 }
