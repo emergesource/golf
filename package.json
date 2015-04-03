@@ -13,6 +13,8 @@
     "hbs": "~2.9.0",
     "morgan": "~1.5.1",
     "mysql": "^2.6.1",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
     "sequelize": "^2.0.5",
     "sequelize-cli": "^1.6.0",
     "serve-favicon": "~2.2.0"
