@@ -5,6 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// environment options
+var env = require('./config/env.local');
+
+// sequelize orm
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(env.dsn);
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
