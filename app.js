@@ -12,6 +12,7 @@ var env = require('./config/env.local');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(env.dsn);
 
+// routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
