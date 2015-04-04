@@ -8,10 +8,6 @@ var bodyParser = require('body-parser');
 // environment options
 var env = require('./config/env.local');
 
-// sequelize orm
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(env.dsn);
-
 // routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
