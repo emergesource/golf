@@ -10,7 +10,18 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
+                    {{title}}
                 </div>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    {{#if loggedIn}}
+                        <li><a href="">sign out</a></li>
+                    {{else}}
+                        <li><a href="">sign in</a></li>
+                    {{/if}}
+                </ul>
             </div>
         </nav>
         {{{body}}}
