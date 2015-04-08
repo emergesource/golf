@@ -25,8 +25,12 @@ module.exports = function(passport) {
         // User.findById(id, function(err, user) {
             // done(err, user);
         // });
-        User.find({'id': id }).then(function(err, user) {
-          done(err, user); 
+        User.find(id).success(function(user) {
+          console.log(id);
+          console.log(user);
+          done(null, user); 
+        }).error(function(err) {
+          done(err);
         });
     });
 
