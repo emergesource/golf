@@ -7,7 +7,7 @@ var basename  = path.basename(module.filename);
 // var env       = process.env.NODE_ENV || "development";
 // var config    = require(__dirname + '/../config/config.json')[env];
 // var sequelize = new Sequelize(config.database, config.username, config.password, config);
-var env = require('/../config/env.local');
+var env = require('../config/env.local');
 var sequelize = new Sequelize(env.dsn);
 var db        = {};
 
@@ -22,6 +22,7 @@ fs
     });
 
 Object.keys(db).forEach(function(modelName) {
+    db[modelName].sync();
     if ("associate" in db[modelName]) {
         db[modelName].associate(db);
     }

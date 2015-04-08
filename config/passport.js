@@ -2,7 +2,8 @@
 var LocalStrategy   = require('passport-local').Strategy;
 
 // load up the user model
-var User            = require('../models/user');
+var models = require('../models');
+var User = models.User; 
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -18,10 +19,14 @@ module.exports = function(passport) {
         done(null, user.id);
     });
 
+
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
+        // User.findById(id, function(err, user) {
+            // done(err, user);
+        // });
+        User.find({'id': id }).then(function(err, user) {
+          done(err, user); 
         });
     });
 
@@ -38,40 +43,51 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
+          user = User.find({where: {'email': email}});
+
+          if (user) {
+            return done(null, false, req.flash(
+              'signupMessage', 
+              'That email is already taken.'
+            ));
+          }
+
+          User.create({'email' : email, 'password': User.generateHash(password)}).then(function(user) {
+            return done(null, user);
+          });
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+        // User.findOne({ 'email' :  email }, function(err, user) {
             // if there are any errors, return the error
-            if (err)
-                return done(err);
+            // if (err)
+                // return done(err);
 
             // check to see if theres already a user with that email
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-            } else {
+            // if (user) {
+                // return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+            // } else {
 
                 // if there is no user with that email
                 // create the user
-                var newUser            = new User();
+                // var newUser            = new User();
 
                 // set the user's local credentials
-                newUser.local.email    = email;
-                newUser.local.password = newUser.generateHash(password);
+                // newUser.email    = email;
+                // newUser.password = newUser.generateHash(password);
 
                 // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
-            }
+                // newUser.save(function(err) {
+                    // if (err)
+                        // throw err;
+                    // return done(null, newUser);
+                // });
+            // }
 
-        });    
+        // });    
 
         });
 
@@ -87,18 +103,18 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+        // User.findOne({ 'local.email' :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
-            if (err)
-                return done(err);
+            // if (err)
+                // return done(err);
 
             // if no user is found, return the message
-            if (!user || !user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Incorrect login information.')); // req.flash is the way to set flashdata using connect-flash
+            // if (!user || !user.validPassword(password))
+                // return done(null, false, req.flash('loginMessage', 'Incorrect login information.')); // req.flash is the way to set flashdata using connect-flash
 
             // all is well, return successful user
-            return done(null, user);
-        });
+            // return done(null, user);
+        // });
 
     }));
     

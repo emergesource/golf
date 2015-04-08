@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         classMethods: {
             generateHash: function(password) {
-                return bcrypt.hasSync( password, bcrypt.genSaltSync(10), null);
+                return bcrypt.hashSync( password, bcrypt.genSaltSync(10), null);
             },
             authenticate: function(password) {
                 return bcrypt.compareSync(password, this.password); 
