@@ -1,24 +1,19 @@
 <div class="container">
-
-    <div class="page-header text-center">
-        <h1><span class="fa fa-user"></span> Profile Page</h1>
-        <a href="/auth/logout" class="btn btn-default btn-sm">Logout</a>
+  <div class="row">
+    <div class="col-sm-6">
+      <h2>Profile</h2>
+        <form method="post" action="">
+          <div class="form-group">
+            <label for="name">Username</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter name" value={{user.name}}>
+          </div> 
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" value={{user.email}}>
+          </div> 
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
     </div>
-
-    <div class="row">
-
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
-                    <p>
-                        <strong>id</strong>: {{user.id}}<br>
-                        <strong>email</strong>: {{user.email}}<br>
-                        <strong>password</strong>: {{user.password}} %>
-                    </p>
-            </div>
-        </div>
-
-    </div>
-
+  </div>
 </div>
